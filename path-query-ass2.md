@@ -171,7 +171,7 @@ from datetime import datetime
     app = FastAPI()
 
     @app.get("/events/")
-    async def get_events(start_date: datetime = Query(..., title="Start Date", description="Start date for filtering events")):
+    async def get_events(start_date: datetime = Query(..., title="Start Date", description="Start date for filtering events" Description YY-MM-DD)):
         return {"start_date": start_date}
 ```
 11. Analyze a given FastAPI application and identify instances where using path

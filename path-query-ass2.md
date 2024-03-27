@@ -1,17 +1,19 @@
 Code Writing: Path Parameters
 ## What are query parameters
-1. Write a FastAPI route that accepts a path parameter for user identification
-(user_id) and returns the user's profile information.
-Answer:   from fastapi import FastAPI
+1. Write a FastAPI route that accepts a path parameter for user identification (user_id) and returns the user's profile information.
+Answer:
+``` python
+from fastapi import FastAPI
           app = FastAPI()
 
           @app.get("/users/{user_id})
           async def read_user(user_id)
             return {"user_id": user_id}
-
-2. Implement error handling for the case when the user_id path parameter is
-missing.
-Answer: from fastapi import FastAPI, HTTPException
+```
+3. Implement error handling for the case when the user_id path parameter is missing.
+Answer:
+``` python
+from fastapi import FastAPI, HTTPException
         app = FastAPI()
 
         @app.get("/users/{user_id}")
@@ -19,19 +21,21 @@ Answer: from fastapi import FastAPI, HTTPException
           if user_id == NONE
             raise HTTPException (status_code = 404, detail = "user not found")
           return{"user_id" user_id}
+```
 Code Writing: Query Parameters
-3. Create a FastAPI route that accepts query parameters for filtering a list of
-products by category and price range.
-Answer: from fastapi import FastAPI, Query
+3. Create a FastAPI route that accepts query parameters for filtering a list of products by category and price range.
+Answer: 
+``` python
+from fastapi import FastAPI, Query
 
 app = FastAPI()
 
 # Sample product data
 products = [
-    {"id": 1, "name": "Product A", "category": "Electronics", "price": 100},
-    {"id": 2, "name": "Product B", "category": "Clothing", "price": 50},
-    {"id": 3, "name": "Product C", "category": "Electronics", "price": 200},
-    {"id": 4, "name": "Product D", "category": "Books", "price": 30},
+    {"id": 1, "name": "TV", "category": "Electronics", "price": 100},
+    {"id": 2, "name": "T-shirt", "category": "Clothing", "price": 50},
+    {"id": 3, "name": "Laptop", "category": "Electronics", "price": 200},
+    {"id": 4, "name": "RDPD", "category": "Books", "price": 30},
 ]
 
 @app.get("/products")
@@ -59,19 +63,20 @@ async def get_products(category: str = None, min_price: float = None, max_price:
 
     return filtered_products
 
-
-4. Implement default values for the query parameters (category defaulting to 'all'
-and price_range defaulting to a specific range).
-Answer: from fastapi import FastAPI, Query
+```
+4. Implement default values for the query parameters (category defaulting to 'all' and price_range defaulting to a specific range).
+Answer:
+``` python
+from fastapi import FastAPI, Query
 
     app = FastAPI()
 
     # Sample product data
     products = [
-        {"id": 1, "name": "Product A", "category": "Electronics", "price": 100},
-        {"id": 2, "name": "Product B", "category": "Clothing", "price": 50},
-        {"id": 3, "name": "Product C", "category": "Electronics", "price": 200},
-        {"id": 4, "name": "Product D", "category": "Books", "price": 30},
+        {"id": 1, "name": "TV", "category": "Electronics", "price": 100},
+        {"id": 2, "name": "T-Shirt", "category": "Clothing", "price": 50},
+        {"id": 3, "name": "Laptop", "category": "Electronics", "price": 200},
+        {"id": 4, "name": "RDPD", "category": "Books", "price": 30},
     ]
 
     @app.get("/products")
@@ -88,21 +93,20 @@ Answer: from fastapi import FastAPI, Query
         filtered_products = [p for p in filtered_products if min_price <= p["price"] <= max_price]
 
         return filtered_products
-
+```
 ## Combining Path and Query Parameters:
-5. Write a FastAPI route that accepts a path parameter for city (city_id) and query
-parameters for filtering restaurants by cuisine type (cuisine) and rating
-(min_rating).
-Answer: from fastapi import FastAPI, Query
+5. Write a FastAPI route that accepts a path parameter for city (city_id) and query parameters for filtering restaurants by cuisine type (cuisine) and rating (min_rating).
+Answer:
+``` python
+from fastapi import FastAPI, Query
 
     app = FastAPI()
 
-    # Sample restaurant data
     restaurants = [
-        {"id": 1, "name": "Restaurant A", "city_id": "1", "cuisine": "Italian", "rating": 4.5},
-        {"id": 2, "name": "Restaurant B", "city_id": "1", "cuisine": "Mexican", "rating": 4.0},
-        {"id": 3, "name": "Restaurant C", "city_id": "2", "cuisine": "Chinese", "rating": 4.2},
-        {"id": 4, "name": "Restaurant D", "city_id": "2", "cuisine": "Italian", "rating": 4.8},
+        {"id": 1, "name": "Transcorp", "city_id": "1", "cuisine": "Italian", "rating": 4.5},
+        {"id": 2, "name": "Chinox", "city_id": "1", "cuisine": "Mexican", "rating": 4.0},
+        {"id": 3, "name": "City_link", "city_id": "2", "cuisine": "Chinese", "rating": 4.2},
+        {"id": 4, "name": "Gold_Touch", "city_id": "2", "cuisine": "Italian", "rating": 4.8},
     ]
 
     @app.get("/restaurants/{city_id}")
@@ -116,19 +120,20 @@ Answer: from fastapi import FastAPI, Query
             filtered_restaurants = [r for r in filtered_restaurants if r["rating"] >= min_rating]
 
         return filtered_restaurants
-
+```
 6. Ensure that the city ID is a path parameter while cuisine type and minimum rating
 are query parameters.
-Answer:from fastapi import FastAPI, Query
+Answer:
+``` python
+from fastapi import FastAPI, Query
 
     app = FastAPI()
 
-    # Sample restaurant data
-    restaurants = [
-        {"id": 1, "name": "Restaurant A", "city_id": "1", "cuisine": "Italian", "rating": 4.5},
-        {"id": 2, "name": "Restaurant B", "city_id": "1", "cuisine": "Mexican", "rating": 4.0},
-        {"id": 3, "name": "Restaurant C", "city_id": "2", "cuisine": "Chinese", "rating": 4.2},
-        {"id": 4, "name": "Restaurant D", "city_id": "2", "cuisine": "Italian", "rating": 4.8},
+        restaurants = [
+        {"id": 1, "name": "Transcorp", "city_id": "1", "cuisine": "Italian", "rating": 4.5},
+        {"id": 2, "name": "Chinox", "city_id": "1", "cuisine": "Mexican", "rating": 4.0},
+        {"id": 3, "name": "City_link", "city_id": "2", "cuisine": "Chinese", "rating": 4.2},
+        {"id": 4, "name": "Gold_Touch", "city_id": "2", "cuisine": "Italian", "rating": 4.8},
     ]
 
     @app.get("/restaurants/{city_id}")
@@ -144,21 +149,23 @@ Answer:from fastapi import FastAPI, Query
             filtered_restaurants = [r for r in filtered_restaurants if r["rating"] >= min_rating]
 
         return filtered_restaurants
-
+```
 ## Data Validation:
-7. Modify an existing FastAPI route that accepts a path parameter for user_id to
-ensure that user_id is an integer and greater than zero.
-Answer: from fastapi import FastAPI, Path
+7. Modify an existing FastAPI route that accepts a path parameter for user_id to ensure that user_id is an integer and greater than zero.
+Answer:
+``` python
+from fastapi import FastAPI, Path
 
     app = FastAPI()
 
     @app.get("/users/{user_id}")
     async def read_user(user_id: int = Path(..., title="User ID", description="The ID of the user (greater than zero)", gt=0)):
         return {"user_id": user_id}
-
-8. Add validation to a query parameter start_date to ensure it is a valid date format.
-Usage and Benefits:
-Answer: from fastapi import FastAPI, Query
+```
+9. Add validation to a query parameter start_date to ensure it is a valid date format. Usage and Benefits:
+Answer:
+``` python
+from fastapi import FastAPI, Query
 from datetime import datetime
 
     app = FastAPI()
@@ -166,10 +173,12 @@ from datetime import datetime
     @app.get("/events/")
     async def get_events(start_date: datetime = Query(..., title="Start Date", description="Start date for filtering events")):
         return {"start_date": start_date}
-
-9. Analyze a given FastAPI application and identify instances where using path
+```
+11. Analyze a given FastAPI application and identify instances where using path
 parameters would be more appropriate than query parameters, and vice versa.
-Answer: from fastapi import FastAPI, Path, Query
+Answer:
+``` python
+from fastapi import FastAPI, Path, Query
 
     app = FastAPI()
 
@@ -180,9 +189,8 @@ Answer: from fastapi import FastAPI, Path, Query
     @app.get("/items/")
     async def get_items(category: str = Query(None, title="Category", description="Filter by category")):
         return {"category": category}
-
-10.Discuss the benefits of using path and query parameters in the provided FastAPI
-application and how it enhances API design.
+```
+10.Discuss the benefits of using path and query parameters in the provided FastAPI application and how it enhances API design.
 Answer: 
 ## Benefits of Using Path Parameters:
 
